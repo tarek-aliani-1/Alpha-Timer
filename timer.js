@@ -121,10 +121,59 @@ function addTask() {
                 taskElement.textContent = taskText;
                 taskElement.addEventListener('click', () => {
                         taskElement.classList.toggle('completed');
+                        saveTasks(); // Save tasks when toggled
                 });
                 tasksContainer.appendChild(taskElement);
                 taskInput.value = '';
                 updateTaskStatus(); // Update task status when a new task is added
+                saveTasks(); // Save tasks when added
+        }
+}
+
+function saveTasks() {
+        const tasks = [];
+        document.querySelectorAll('.task').forEach(task => {
+                tasks.push({
+                        text: task.textContent,
+                        completed: task.classList.contains('completed')
+                });
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task';
+                taskElement.textContent = task.text;
+                if (task.completed) {
+                        taskElement.classList.add('completed');
+                }
+                taskElement.addEventListener('click', () => {
+                        taskElement.classList.toggle('completed');
+                        saveTasks(); // Save tasks when toggled
+                });
+                tasksContainer.appendChild(taskElement);
+        });
+        updateTaskStatus(); // Update task status when tasks are loaded
+}
+
+function saveSettings() {
+        localStorage.setItem('workDuration', workDurationInput.value);
+        localStorage.setItem('breakDuration', breakDurationInput.value);
+}
+
+function loadSettings() {
+        const savedWorkDuration = localStorage.getItem('workDuration');
+        const savedBreakDuration = localStorage.getItem('breakDuration');
+        if (savedWorkDuration) {
+                workDurationInput.value = savedWorkDuration;
+                workDuration = savedWorkDuration * 60;
+        }
+        if (savedBreakDuration) {
+                breakDurationInput.value = savedBreakDuration;
+                breakDuration = savedBreakDuration * 60;
         }
 }
 
@@ -141,10 +190,12 @@ addTaskButton.addEventListener('click', addTask);
 workDurationInput.addEventListener('change', () => {
         workDuration = workDurationInput.value * 60;
         resetTimer();
+        saveSettings(); // Save settings when changed
 });
 
 breakDurationInput.addEventListener('change', () => {
         breakDuration = breakDurationInput.value * 60;
+        saveSettings(); // Save settings when changed
 });
 
 function applyThemeToSettings() {
@@ -158,4 +209,7 @@ function applyThemeToSettings() {
 
 document.addEventListener('DOMContentLoaded', () => {
         applyThemeToSettings();
+        loadTasks(); // Load tasks on page load
+        loadSettings(); // Load settings on page load
+        updateTimerDisplay(); // Update timer display on page load
 });
