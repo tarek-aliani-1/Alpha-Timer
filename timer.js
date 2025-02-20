@@ -119,10 +119,21 @@ function addTask() {
                 const taskElement = document.createElement('div');
                 taskElement.className = 'task';
                 taskElement.textContent = taskText;
+
+                const removeButton = document.createElement('button'); // Add remove button
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-task';
+                removeButton.addEventListener('click', () => {
+                        taskElement.remove();
+                        saveTasks(); // Save tasks when removed
+                });
+
+                taskElement.appendChild(removeButton);
                 taskElement.addEventListener('click', () => {
                         taskElement.classList.toggle('completed');
                         saveTasks(); // Save tasks when toggled
                 });
+
                 tasksContainer.appendChild(taskElement);
                 taskInput.value = '';
                 updateTaskStatus(); // Update task status when a new task is added
@@ -147,6 +158,16 @@ function loadTasks() {
                 const taskElement = document.createElement('div');
                 taskElement.className = 'task';
                 taskElement.textContent = task.text;
+
+                const removeButton = document.createElement('button'); // Add remove button
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-task';
+                removeButton.addEventListener('click', () => {
+                        taskElement.remove();
+                        saveTasks(); // Save tasks when removed
+                });
+
+                taskElement.appendChild(removeButton);
                 if (task.completed) {
                         taskElement.classList.add('completed');
                 }

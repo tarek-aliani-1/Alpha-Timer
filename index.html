@@ -215,6 +215,31 @@
                 .light-theme footer {
                         color: var(--highlight-color, #ff7e5f); /* Use CSS variable for highlight color */
                 }
+
+                .remove-task {
+                        background: var(--button-gradient, linear-gradient(135deg, #ff4d4d, #ff1a1a));
+                        border: none;
+                        border-radius: 15px;
+                        color: white;
+                        padding: 5px 10px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 0 10px var(--highlight-color, rgba(255, 77, 77, 0.3));
+                }
+
+                .remove-task:hover {
+                        box-shadow: 0 0 15px var(--highlight-color, rgba(255, 77, 77, 0.5));
+                }
+
+                .light-theme .remove-task {
+                        background: var(--button-gradient, linear-gradient(135deg, #ff7e5f, #feb47b));
+                        box-shadow: 0 0 10px var(--highlight-color, rgba(255, 126, 95, 0.3));
+                }
+
+                .light-theme .remove-task:hover {
+                        box-shadow: 0 0 15px var(--highlight-color, rgba(255, 126, 95, 0.5));
+                }
         </style>
 </head>
 <body>
