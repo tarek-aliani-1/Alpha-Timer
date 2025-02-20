@@ -23,7 +23,7 @@ Alpha Timer is a cutting-edge Pomodoro timer to boost your productivity and task
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/your-username/alpha-timer.git
+git clone https://github.com/tarek-aliani-1//Alpha-Timer.git
 ```
 2. Open index.html in your browser to start.
 
